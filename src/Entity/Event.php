@@ -9,6 +9,23 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Event {
     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=1000)
+     */
+    private $texte;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -55,21 +72,5 @@ class Event {
     {
         $this->texte = $texte;
     }
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=1000)
-     */
-    private $texte;
 
 }
