@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Category;
 use \DateTime;
 
 /**
@@ -59,10 +60,17 @@ class Event{
 
     /**
      * @var \Category
-     * @ORM\
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @JoinColumn(name="id_category", referencedColumnName="id_category", nullable=false)
      */
-    private $categoryId;
-    private $userId;
+    private $idCategory;
+
+    /**
+     * @var \User
+     * @ORM\OneToOne(targetEntity="App\Entity\User")
+     * @JoinColumn(name="id_user", referencedColumnName="id_user", nullable=false)
+     */
+    private $idUser;
 
 
 
