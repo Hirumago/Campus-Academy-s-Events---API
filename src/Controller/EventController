@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Controller;
+use App\Entity\Event;
+
+class EventController{
+
+    /**
+     * @Route("/event", name="event_list"
+     */
+    public function getAll(){
+        $em = $this->getDoctrine()->getManager();
+        $events = $em->getRepository(Event::class)->findAll();
+
+        return $events;
+    }
+}
