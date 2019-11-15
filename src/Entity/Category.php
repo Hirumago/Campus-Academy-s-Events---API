@@ -20,4 +20,38 @@ class Category{
       * @ORM\Column(type="string", name="label_category", nullable=false)
       */
      private $labelCategory;
+
+    /**
+     * @return mixed
+     */
+    public function getIdCategory()
+    {
+        return $this->idCategory;
+    }
+
+    /**
+     * @param mixed $idCategory
+     */
+    public function setIdCategory($idCategory)
+    {
+        $this->idCategory = $idCategory;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLabelCategory()
+    {
+        return $this->labelCategory;
+    }
+
+    /**
+     * @param mixed $labelCategory
+     */
+    public function setLabelCategory($labelCategory)
+    {
+        $this->labelCategory = $labelCategory;
+    }
+
+
 }

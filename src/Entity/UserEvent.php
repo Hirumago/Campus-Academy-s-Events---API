@@ -34,4 +34,70 @@ class UserEvent{
      * @ORM\Column(name="notify", type="boolean", nullable=false)
      */
     private $notify;
+
+    /**
+     * @return \User
+     */
+    public function getIdUser(): \User
+    {
+        return $this->idUser;
+    }
+
+    /**
+     * @param \User $idUser
+     */
+    public function setIdUser(\User $idUser)
+    {
+        $this->idUser = $idUser;
+    }
+
+    /**
+     * @return \Event
+     */
+    public function getIdEvent(): \Event
+    {
+        return $this->idEvent;
+    }
+
+    /**
+     * @param \Event $idEvent
+     */
+    public function setIdEvent(\Event $idEvent)
+    {
+        $this->idEvent = $idEvent;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getRegistrationDate(): DateTime
+    {
+        return $this->registrationDate;
+    }
+
+    /**
+     * @param DateTime $registrationDate
+     */
+    public function setRegistrationDate(DateTime $registrationDate)
+    {
+        $this->registrationDate = $registrationDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotify()
+    {
+        return $this->notify;
+    }
+
+    /**
+     * @param mixed $notify
+     */
+    public function setNotify($notify)
+    {
+        $this->notify = $notify;
+    }
+
+
 }
