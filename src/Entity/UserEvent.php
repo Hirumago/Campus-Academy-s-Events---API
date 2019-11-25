@@ -1,15 +1,21 @@
 <?php
 
 namespace App\Entity;
-
+use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 /**
  * class UserEvent
  * @package App\Entity
- * @ORM\Entity(RepositoryClass="App\Repository\UserEventRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserEventRepository")
  */
 class UserEvent{
 
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer", name="id_user_event", nullable=false)
+     */
+    private $id;
     /**
      * @var \User
      * @ORM\ManyToOne(targetEntity="App\Entity\User")

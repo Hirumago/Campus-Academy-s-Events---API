@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Category
  * @package App\Entity
@@ -12,7 +12,7 @@ class Category{
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\column(type="integer", name="id_category",nullable=false)
+     * @ORM\Column(type="integer", name="id_category",nullable=false)
      */
      private $idCategory;
 

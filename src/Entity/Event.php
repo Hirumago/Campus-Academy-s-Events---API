@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Category;
 use \DateTime;
 
@@ -22,7 +22,7 @@ class Event{
 
 
     /**
-     * @ORM\Column(type="string",name="location", length="30", nullable=false)
+     * @ORM\Column(type="string",name="location", length=30, nullable=false)
      */
     private $location;
 
@@ -40,14 +40,14 @@ class Event{
     /**
      * @var \Category
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
-     * @JoinColumn(name="id_category", referencedColumnName="id_category", nullable=false)
+     * @ORM\JoinColumn(name="id_category", referencedColumnName="id_category", nullable=false)
      */
     private $idCategory;
 
     /**
      * @var \User
      * @ORM\OneToOne(targetEntity="App\Entity\User")
-     * @JoinColumn(name="id_user", referencedColumnName="id_user", nullable=false)
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id_user", nullable=false)
      */
     private $idUser;
 
@@ -63,14 +63,14 @@ class Event{
 
     /**
      * @var \DateTime
-     * @ORM\Columng(type="datetime", name="start_date",nullable=false)
+     * @ORM\Column(type="datetime", name="start_date",nullable=false)
      */
 
     private $startDate;
 
     /**
      * @var \DateTime
-     * @ORM\Columng(type="datetime", name="end_date",nullable=false)
+     * @ORM\Column(type="datetime", name="end_date",nullable=false)
      */
     private $endDate;
 
