@@ -8,7 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User{
+class User
+{
 
     /**
      * @ORM\Id
@@ -43,11 +44,109 @@ class User{
      */
     private $emailUser;
 
+    /**
+     * @return mixed
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+
+    /**
+     * @param mixed $idUser
+     */
+
+    public function setIdUser()
+    {
+        $this->IdUser;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastNameUser()
+    {
+        return $this->LastNameUser;
+    }
+
+    /**
+     * @param mixed $lastNameUser
+     */
+
+    public function setLastNameUser()
+    {
+        $this->LastNameUser;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstNameUser()
+    {
+        return $this->idFirstNameUser;
+    }
+
+    /**
+     * @param mixed $firstNameUser
+     */
+
+    public function setFirstNameUser()
+    {
+        $this->FirstNameUser;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPasswordUser()
+    {
+        return $this->PasswordUser;
+    }
+
+    /**
+     * @param mixed $passwordUser
+     */
+
+    public function setPasswordUser()
+    {
+        $this->PasswordUser;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoleUser()
+    {
+        return $this->RoleUser;
+    }
 
 
+    /**
+     * @param mixed $roleUser
+     */
+
+    public function setRoleUser()
+
+    {
+        $this->RoleUser;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmailUser()
+    {
+        return $this->EmailUser;
+    }
 
 
+    /**
+     * @param mixed $emailUser
+     */
+
+    public function setEmailUser()
+    {
+        $this->EmailUser;
+    }
 
 }
-
-
