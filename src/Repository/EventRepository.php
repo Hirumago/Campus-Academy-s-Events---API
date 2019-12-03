@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Repository;
+use Doctrine\ORM\EntityRepository;
 
-Class EventRepository{
+
+Class EventRepository extends EntityRepository {
 
 }

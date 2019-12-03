@@ -14,7 +14,7 @@ class User
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\column(type="integer",name="id_user",nullable=false)
+     * @ORM\Column(type="integer",name="id_user",nullable=false)
      */
     private $idUser;
 
@@ -40,7 +40,7 @@ class User
     private $roleUser;
 
     /**
-     * @ORM\Column(type="string",name="email_user",length=20,nullable=false)
+     * @ORM\Column(type="string",name="email_user",length=30,nullable=false)
      */
     private $emailUser;
 
@@ -55,44 +55,41 @@ class User
     /**
      * @param mixed $idUser
      */
-
-    public function setIdUser()
+    public function setIdUser($idUser)
     {
-        $this->IdUser;
+        $this->idUser = $idUser;
     }
 
     /**
      * @return mixed
      */
-    public function getLastNameUser()
+    public function getLastnameUser()
     {
-        return $this->LastNameUser;
+        return $this->lastnameUser;
     }
 
     /**
-     * @param mixed $lastNameUser
+     * @param mixed $lastnameUser
      */
-
-    public function setLastNameUser()
+    public function setLastnameUser($lastnameUser)
     {
-        $this->LastNameUser;
+        $this->lastnameUser = $lastnameUser;
     }
 
     /**
      * @return mixed
      */
-    public function getFirstNameUser()
+    public function getFirstnameUser()
     {
-        return $this->idFirstNameUser;
+        return $this->firstnameUser;
     }
 
     /**
-     * @param mixed $firstNameUser
+     * @param mixed $firstnameUser
      */
-
-    public function setFirstNameUser()
+    public function setFirstnameUser($firstnameUser)
     {
-        $this->FirstNameUser;
+        $this->firstnameUser = $firstnameUser;
     }
 
     /**
@@ -100,16 +97,15 @@ class User
      */
     public function getPasswordUser()
     {
-        return $this->PasswordUser;
+        return $this->passwordUser;
     }
 
     /**
      * @param mixed $passwordUser
      */
-
-    public function setPasswordUser()
+    public function setPasswordUser($passwordUser)
     {
-        $this->PasswordUser;
+        $this->passwordUser = $passwordUser;
     }
 
     /**
@@ -117,18 +113,15 @@ class User
      */
     public function getRoleUser()
     {
-        return $this->RoleUser;
+        return $this->roleUser;
     }
-
 
     /**
      * @param mixed $roleUser
      */
-
-    public function setRoleUser()
-
+    public function setRoleUser($roleUser)
     {
-        $this->RoleUser;
+        $this->roleUser = $roleUser;
     }
 
     /**
@@ -136,17 +129,17 @@ class User
      */
     public function getEmailUser()
     {
-        return $this->EmailUser;
+        return $this->emailUser;
     }
-
 
     /**
      * @param mixed $emailUser
      */
-
-    public function setEmailUser()
+    public function setEmailUser($emailUser)
     {
-        $this->EmailUser;
+        $this->emailUser = $emailUser;
     }
+
+
 
 }

@@ -19,8 +19,6 @@ class Event{
      */
     private $idEvent;
 
-
-
     /**
      * @ORM\Column(type="string",name="location", length=30, nullable=false)
      */
@@ -38,16 +36,16 @@ class Event{
     private $creationDate;
 
     /**
-     * @var \Category
+     * @var Category
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id_category", nullable=false)
      */
     private $idCategory;
 
     /**
-     * @var \User
-     * @ORM\OneToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="id_user", nullable=false)
+     * @var User
+     * @ORM\OneToOne(targetEntity="App\Entity\UserEvent")
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id_user", nullable=true)
      */
     private $idUser;
 
@@ -203,9 +201,9 @@ class Event{
     }
 
     /**
-     * @return \Category
+     * @return Category
      */
-    public function getIdCategory(): \Category
+    public function getIdCategory()
     {
         return $this->idCategory;
     }
@@ -219,17 +217,17 @@ class Event{
     }
 
     /**
-     * @return \User
+     * @return User
      */
-    public function getIdUser(): \User
+    public function getIdUser()
     {
         return $this->idUser;
     }
 
     /**
-     * @param \User $idUser
+     * @param \UserEvent $idUser
      */
-    public function setIdUser(\User $idUser)
+    public function setIdUser(\UserEvent $idUser)
     {
         $this->idUser = $idUser;
     }
