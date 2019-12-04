@@ -4,9 +4,9 @@ namespace App\Controller;
 
 
 use App\Entity\Event;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
+use Symfony\Component\Routing\Annotation\Route;
 
 
 class EventController extends BaseController
@@ -14,24 +14,16 @@ class EventController extends BaseController
 
 
     /**
-     * @Route("/events/{id}", name="events_show")
+     * @Route("/event/{id}", name="event_show", methods={"GET", "HEAD"})
+
+     * @param $id
      * @return Response
      */
-    public function showAction()
+    public function showAction($id)
     {
 
-        $event = $this->getDoctrine()->getManager()->getRepository(Event::class)->findBy(array('idEvent' => 1));
+        $event = $this->getDoctrine()->getManager()->getRepository(Event::class)->findBy(array('idEvent' => $id));
         $data = $this->serialize($event);
-
-
-        //$data = "{
-          // \"Accept-Language\": \"en-US,en;q=0.8\",
-           //\"Host\": \"headers.jsontest.com\",
-           //\"Accept-Charset\": \"ISO-8859-1,utf-8;q=0.7,*;q=0.3\",
-           //\"Accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\"
-           // }";
-
-
         $response = new Response($data);
         $response->headers->set('Content-Type', 'application/json');
 
@@ -39,12 +31,22 @@ class EventController extends BaseController
     }
 
     /**
-     * @Route("/test", name="test")
+     * @Route("/event", name="event_create" , methods={"POST"})
+     * @param Request $request
+     * @return Response
      */
-    public function testAction()
+    public function createAction(Request $request)
     {
-        return $this->render('test.html.twig', [
-            'test' => 'test'
-        ]);
+        $data = $request->getContent();
+        $event = $this->deserialize($data, 'App\Entity\Event');
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($event);
+        $em->flush();
+
+        return new Response('', Response::HTTP_CREATED);
     }
+
+
+
+
 }
