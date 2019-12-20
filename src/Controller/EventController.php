@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
 
@@ -15,6 +16,7 @@ class EventController extends BaseController
 
     /**
      * @Route("/events/{id}", name="events_show")
+     * @Method({"POST"})
      * @return Response
      */
     public function showAction()

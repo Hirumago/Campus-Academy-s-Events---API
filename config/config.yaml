@@ -1,3 +1,14 @@
 framework:
   serializer:
     enabled: true
+
+sensio_framework_extra:
+  request:
+    converters: true
+
+fos_rest:
+  body_converter:
+    enabled: true
+    validate: true
+    validation_errors_argument: validationErrors # This is the default value
+
