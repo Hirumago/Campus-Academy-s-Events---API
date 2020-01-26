@@ -1,6 +1,29 @@
 <?php
 
 namespace App\Entity;
+/*{
+		"id_event": 1,
+        "id_category": {
+        	"id_category": 1,
+        	"label_category": "label catégorie"
+        	},
+    	"id_user": {
+	        "id_user": 2,
+	        "lastname_user": "test",
+	        "firstname_user": "edit",
+	        "password_user": "edit",
+	        "role_user": "admin",
+	        "email_user": "j.dupont@gmail.com"
+    },
+        "location": "vern",
+        "private_event": 0,
+        "creation_date": "2017-05-11T00:00:00+08:00",
+        "title":"titre",
+        "description":"description",
+        "start_date":"2017-05-11T00:00:00+08:00",
+        "end_date":"2017-05-11T00:00:00+08:00"
+    }*/
+
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Category;
 use \DateTime;
