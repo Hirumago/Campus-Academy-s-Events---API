@@ -32,8 +32,8 @@ class EventController extends BaseController
     public function listAction()
     {
 
-        $users = $this->getDoctrine()->getRepository(Event::class)->findAll();
-        return $users;
+        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+        return $events;
     }
 
     /**
