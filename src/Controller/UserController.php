@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -41,8 +42,10 @@ class UserController extends BaseController
      */
     public function new(Request $request)
     {
+
         $data = $request->getContent();
         $user = $this->deserialize($data,  "App\Entity\User");
+
         if ($user){
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -70,37 +73,26 @@ class UserController extends BaseController
 
 
     /**
-     * @Rest\View()
-     * @Rest\Put("/edit/{id}")
+     * @Route("/edit/{id}", name="edit", methods={"PUT"})
      * @param $id
      * @param Request $request
      * @return object|null
      */
-    public function updateUser(Request $request, string $id)
+    public function updateUser(Request $request, $id)
     {
-        $Dbuser = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(array("idUser"=> $id));
+        $em = $this->getDoctrine()->getManager();
 
-        if (empty($Dbuser)) {
-            return new JsonResponse("user n'existe pas en base");
+        $d = $request->getContent();
+        if (!empty($d)) {
+            $dbuser = $em->getRepository(User::class)->find($id);
+            $user = $this->deserialize($d, "App\Entity\User");
+            $em->merge($user);
+            $em->flush();
+            return new JsonResponse(array("message" => "User modifié"));
+        } else {
+            return new JsonResponse(array("message" => "requete invalide", Response::HTTP_NOT_MODIFIED));
         }
-        else {
-            $form = $this->createForm(UserType::class, $Dbuser);
-            $form->submit($request->request->all());
-            $form->handleRequest($request);
 
-            if ($form->isValid()) {
-                $d = $request->getContent();
-                $user = $this->deserialize($d, "App\Entity\User");
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-
-                return new JsonResponse(array("message" => "User modifié"));
-            }
-            else{
-                return new JsonResponse(array("message" => "Formulaire invalide", Response::HTTP_NOT_MODIFIED));
-            }
-        }
     }
 
     /**
@@ -109,14 +101,14 @@ class UserController extends BaseController
      * @param Request $request
      * @return Response
      */
-    public function delete(Request $request): Response
+    public function delete($id,Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $user= $entityManager->getRepository(User::class)->find($request->get('id'));;
+        $user= $entityManager->getRepository(User::class)->find($id);;
         if ($user) {
             $entityManager->remove($user);
             $entityManager->flush();
-            return new JsonResponse("true");
+            return new JsonResponse(array("messsage" => "user supprimé", Response::HTTP_OK));
         }
 
         return new JsonResponse("false");
