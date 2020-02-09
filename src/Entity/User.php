@@ -2,6 +2,7 @@
 
 namespace  App\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Id;
 
 /**
  * Class User
@@ -13,7 +14,7 @@ class User
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer",name="id_user",nullable=false)
      */
     private $idUser;
