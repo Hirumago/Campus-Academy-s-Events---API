@@ -160,6 +160,18 @@
     },
     "php": {
         "version": "7.2"
+<<<<<<< HEAD
+=======
+    },
+    "phpdocumentor/reflection-common": {
+        "version": "2.0.0"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "4.3.2"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "1.0.1"
+>>>>>>> f39b5d7877fab5715e1dfc276a8d7b8a7a4c8b31
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -271,9 +283,12 @@
     "symfony/inflector": {
         "version": "v4.4.0"
     },
+<<<<<<< HEAD
     "symfony/intl": {
         "version": "v4.4.1"
     },
+=======
+>>>>>>> f39b5d7877fab5715e1dfc276a8d7b8a7a4c8b31
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
