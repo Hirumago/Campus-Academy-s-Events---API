@@ -36,6 +36,7 @@ class EventController extends BaseController
         return $events;
     }
 
+
     /**
      * @Route("/new", name="new", methods={"POST"})
      * @param Request $request
@@ -64,7 +65,7 @@ class EventController extends BaseController
      *     name = "show",
      *     requirements = {"id"="\d+"})
      * @param string $id
-     * @return object|null
+     * @return object
      */
     public function show($id)
     {
