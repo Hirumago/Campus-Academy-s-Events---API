@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Event;
+use App\Repository\EventRepository;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -20,7 +20,6 @@ use Symfony\Component\Validator\Constraints\Json;
 
 /**
  * @Route("/event")
- * format de date : Y-m-d\TH:i:sP
  */
 class EventController extends BaseController
 {
@@ -29,13 +28,11 @@ class EventController extends BaseController
      * @Rest\View()
      * @Get("/list")
      */
-    public function listAction()
-    {
+    public function listAction(){
 
-        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
-        return $events;
+        $users = $this->getDoctrine()->getRepository(Event::class)->findAll();
+        return $users;
     }
-
 
     /**
      * @Route("/new", name="new", methods={"POST"})
@@ -46,16 +43,16 @@ class EventController extends BaseController
     {
 
         $data = $request->getContent();
-        $user = $this->deserialize($data, "App\Entity\Event");
+        $user = $this->deserialize($data,  "App\Entity\Event");
 
-        if ($user) {
+        if ($user){
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
-            return new JsonResponse(array("message" => "User crée", Response::HTTP_CREATED));
+            return new JsonResponse(array("message" => "Event crée", Response::HTTP_CREATED));
         }
-        return new JsonResponse(array("message" => "deserialisation echoué"));
+        return new JsonResponse(array("message"=> "deserialisation echoué"));
     }
 
     /**
@@ -65,12 +62,12 @@ class EventController extends BaseController
      *     name = "show",
      *     requirements = {"id"="\d+"})
      * @param string $id
-     * @return object
+     * @return object|null
      */
     public function show($id)
     {
-        $event = $this->getDoctrine()->getManager()->getRepository(Event::class)->findOneBy(array("idEvent" => $id));
-        return $event;
+        $user = $this->getDoctrine()->getManager()->getRepository(Event::class)->findOneBy(array("idEvent"=>$id));
+        return $user;
     }
 
 
@@ -80,17 +77,17 @@ class EventController extends BaseController
      * @param Request $request
      * @return object|null
      */
-    public function updateEvent(Request $request, $id)
+    public function updateUser(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
         $d = $request->getContent();
         if (!empty($d)) {
-            $dbEvent = $em->getRepository(Event::class)->find($id);
-            $event = $this->deserialize($d, "App\Entity\Event");
-            $em->merge($event);
+            $dbuser = $em->getRepository(Event::class)->find($id);
+            $user = $this->deserialize($d, "App\Entity\Event");
+            $em->merge($user);
             $em->flush();
-            return new JsonResponse(array("message" => "Event modifié"));
+            return new JsonResponse(array("message" => "User modifié"));
         } else {
             return new JsonResponse(array("message" => "requete invalide", Response::HTTP_NOT_MODIFIED));
         }
@@ -103,14 +100,14 @@ class EventController extends BaseController
      * @param Request $request
      * @return Response
      */
-    public function delete($id, Request $request): Response
+    public function delete($id,Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $event = $entityManager->getRepository(Event::class)->find($id);;
-        if ($event) {
-            $entityManager->remove($event);
+        $user= $entityManager->getRepository(User::class)->find($id);;
+        if ($user) {
+            $entityManager->remove($user);
             $entityManager->flush();
-            return new JsonResponse(array("messsage" => "event supprimé", Response::HTTP_OK));
+            return new JsonResponse(array("messsage" => "user supprimé", Response::HTTP_OK));
         }
 
         return new JsonResponse("false");
