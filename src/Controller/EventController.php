@@ -35,7 +35,7 @@ class EventController extends BaseController
     }
 
     /**
-     * @Route("/new", name="new", methods={"POST"})
+     * @Route("/new", name="event_new", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
@@ -43,11 +43,11 @@ class EventController extends BaseController
     {
 
         $data = $request->getContent();
-        $user = $this->deserialize($data,  "App\Entity\Event");
+        $event = $this->deserialize($data,  "App\Entity\Event");
 
-        if ($user){
+        if ($event){
             $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
+            $em->persist($event);
             $em->flush();
 
             return new JsonResponse(array("message" => "Event crée", Response::HTTP_CREATED));
@@ -59,7 +59,7 @@ class EventController extends BaseController
      * @Rest\View()
      * @Get(
      *     path = "/{id}",
-     *     name = "show",
+     *     name = "event_show",
      *     requirements = {"id"="\d+"})
      * @param string $id
      * @return object|null
@@ -72,7 +72,7 @@ class EventController extends BaseController
 
 
     /**
-     * @Route("/edit/{id}", name="edit", methods={"PUT"})
+     * @Route("/edit/{id}", name="event_edit", methods={"PUT"})
      * @param $id
      * @param Request $request
      * @return object|null

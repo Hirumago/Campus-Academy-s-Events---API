@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use  App\Entity\Envent;
+use  App\Entity\User;
 use DateTime;
 /**
  * class UserEvent
@@ -10,16 +12,22 @@ use DateTime;
  */
 class UserEvent{
 
-
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer", name="id", nullable=false)
+     */
+    private $id;
+
+    /**
+     * @var User
+     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist"})
      * @ORM\JoinColumn(name="id_user", referencedColumnName="id_user", nullable=false)
      */
     private $idUser;
 
     /**
-     * @var \Event
+     * @var Event
      * @ORM\OneToOne(targetEntity="App\Entity\Event")
      * @ORM\JoinColumn(name="id_event", referencedColumnName="id_event", nullable=false)
      */
@@ -53,7 +61,7 @@ class UserEvent{
     }
 
     /**
-     * @return \Event
+     * @return Event
      */
     public function getIdEvent()
     {
