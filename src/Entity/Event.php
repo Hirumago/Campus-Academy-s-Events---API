@@ -27,7 +27,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Category;
 use  App\Entity\UserEvent;
-use  App\Entity\Event;
 use  App\Entity\User;
 use \DateTime;
 
@@ -70,8 +69,8 @@ class Event{
 
     /**
      * @var UserEvent
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserEvent",cascade={"persist"})
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="id_user", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserEvent")
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id", nullable=true)
      */
     private $idUser;
 

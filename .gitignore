@@ -10,6 +10,7 @@ composer.json
 /.idea
 composer.lock
 symfony.lock
+/Migrations
 ###< symfony/framework-bundle ###
 
 ###> lexik/jwt-authentication-bundle ###
