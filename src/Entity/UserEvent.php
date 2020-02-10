@@ -12,12 +12,6 @@ use DateTime;
  */
 class UserEvent{
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", name="id", nullable=false)
-     */
-    private $id;
 
     /**
      * @var User
@@ -28,6 +22,7 @@ class UserEvent{
 
     /**
      * @var Event
+     * @ORM\Id
      * @ORM\OneToOne(targetEntity="App\Entity\Event")
      * @ORM\JoinColumn(name="id_event", referencedColumnName="id_event", nullable=false)
      */
