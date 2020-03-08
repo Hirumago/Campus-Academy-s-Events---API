@@ -5,37 +5,33 @@ namespace App\Controller;
 
 
 
+use FOS\RestBundle\Controller\FOSRestController;
 use JMS\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-class BaseController extends AbstractController
+
+
+class BaseController extends FOSRestController
 {
 
     public static function getSubscribedServices() {
         return array_merge(parent::getSubscribedServices(), [ 'jms_serializer' => '?'.SerializerInterface::class, ]);
     }
 
-    /**
-     * @param $data
-     * @return mixed
-     */
+
     protected function serialize($data)
     {
         return $this->container->get('jms_serializer')
             ->serialize($data, 'json');
     }
 
-    /**
-     * @param $object
-     * @param $class
-     * @return mixed
-     */
-    protected function deserialize($object, $class)
+    protected function deserialize($data, $entity)
     {
         return $this->container->get('jms_serializer')
-            ->deserialize($object, $class, 'json');
+            ->deserialize($data,$entity, 'json');
     }
 }
+
+
 
 
