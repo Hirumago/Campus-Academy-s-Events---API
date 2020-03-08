@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Event;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
