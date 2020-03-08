@@ -40,7 +40,7 @@ class EventController extends BaseController
     /**
      *
      *  @Rest\View()
-     * @Post("/new")
+     * @Post("/")
      * @param Request $request
      * @return JsonResponse
      */
@@ -62,7 +62,7 @@ class EventController extends BaseController
 
     /**
      * @Rest\View()
-     * @Get("/show/{id}")
+     * @Get("/{id}")
      * @param string $id
      * @return object|null
      */
@@ -75,7 +75,7 @@ class EventController extends BaseController
 
     /**
      * @Rest\View()
-     * @Put("/update/{id}")
+     * @Put("/{id}")
      * @param $id
      * @param Request $request
      * @return object|null
@@ -99,7 +99,7 @@ class EventController extends BaseController
 
     /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/delete/{id}")
+     * @Rest\Delete("/{id}")
      * @param Request $request
      * @return Response
      */
