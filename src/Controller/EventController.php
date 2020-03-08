@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+
+use FOS\RestBundle\Controller\Annotations\Put;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +38,9 @@ class EventController extends BaseController
     }
 
     /**
-     * @Route("/new", name="new", methods={"POST"})
+     *
+     *  @Rest\View()
+     * @Post("/new")
      * @param Request $request
      * @return JsonResponse
      */
@@ -48,7 +52,7 @@ class EventController extends BaseController
 
         if ($user) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
+            $em->merge($user);
             $em->flush();
 
             return new JsonResponse(array("message" => "User crée", Response::HTTP_CREATED));
@@ -58,10 +62,7 @@ class EventController extends BaseController
 
     /**
      * @Rest\View()
-     * @Get(
-     *     path = "/{id}",
-     *     name = "show",
-     *     requirements = {"id"="\d+"})
+     * @Get("/show/{id}")
      * @param string $id
      * @return object|null
      */
@@ -73,7 +74,8 @@ class EventController extends BaseController
 
 
     /**
-     * @Route("/edit/{id}", name="edit", methods={"PUT"})
+     * @Rest\View()
+     * @Put("/update/{id}")
      * @param $id
      * @param Request $request
      * @return object|null
