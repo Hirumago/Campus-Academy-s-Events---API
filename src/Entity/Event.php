@@ -210,7 +210,7 @@ class Event{
     }
 
     /**
-     * @param \Category $idCategory
+     * @param Category $idCategory
      */
     public function setIdCategory(\Category $idCategory)
     {
