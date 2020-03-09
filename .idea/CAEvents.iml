@@ -66,9 +66,15 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-kernel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/inflector" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/intl" />
 >>>>>>> CAE-API-1
+=======
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/intl" />
+=======
+>>>>>>> f39b5d7877fab5715e1dfc276a8d7b8a7a4c8b31
+>>>>>>> 222e5d507b395522b3e51158f2c8b52a95a71ae2
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/maker-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mime" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/options-resolver" />
