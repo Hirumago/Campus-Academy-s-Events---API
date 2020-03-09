@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Event;
-use App\Repository\EventRepository;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -21,6 +20,7 @@ use Symfony\Component\Validator\Constraints\Json;
 
 /**
  * @Route("/event")
+ * format de date : Y-m-d\TH:i:sP
  */
 class EventController extends BaseController
 {
@@ -29,32 +29,46 @@ class EventController extends BaseController
      * @Rest\View()
      * @Get("/list")
      */
-    public function listEvent(){
+    public function listAction()
+    {
 
         $users = $this->getDoctrine()->getRepository(Event::class)->findAll();
         return $users;
     }
 
     /**
-     *@Rest\View()
-     * @Get("/")
+     *
+     *  @Rest\View()
+     * @Post("/")
      * @param Request $request
      * @return JsonResponse
      */
-    public function createEvent(Request $request)
+    public function new(Request $request)
     {
 
         $data = $request->getContent();
-        $event = $this->deserialize($data,  "App\Entity\Event");
+        $user = $this->deserialize($data, "App\Entity\Event");
 
-        if ($event){
+        if ($user) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
+            $em->merge($user);
             $em->flush();
 
-            return new JsonResponse(array("message" => "Event crée", Response::HTTP_CREATED));
+            return new JsonResponse(array("message" => "User crée", Response::HTTP_CREATED));
         }
-        return new JsonResponse(array("message"=> "deserialisation echoué"));
+        return new JsonResponse(array("message" => "deserialisation echoué"));
+    }
+
+    /**
+     * @Rest\View()
+     * @Get("/{id}")
+     * @param string $id
+     * @return object|null
+     */
+    public function show($id)
+    {
+        $event = $this->getDoctrine()->getManager()->getRepository(Event::class)->findOneBy(array("idEvent" => $id));
+        return $event;
     }
 
     /**
@@ -69,7 +83,6 @@ class EventController extends BaseController
         return $user;
     }
 
-
     /**
      * @Rest\View()
      * @Put("/{id}")
@@ -83,11 +96,11 @@ class EventController extends BaseController
 
         $d = $request->getContent();
         if (!empty($d)) {
-            $dbuser = $em->getRepository(Event::class)->find($id);
-            $user = $this->deserialize($d, "App\Entity\Event");
-            $em->merge($user);
+            $dbEvent = $em->getRepository(Event::class)->find($id);
+            $event = $this->deserialize($d, "App\Entity\Event");
+            $em->merge($event);
             $em->flush();
-            return new JsonResponse(array("message" => "User modifié"));
+            return new JsonResponse(array("message" => "Event modifié"));
         } else {
             return new JsonResponse(array("message" => "requete invalide", Response::HTTP_NOT_MODIFIED));
         }
@@ -100,14 +113,14 @@ class EventController extends BaseController
      * @param Request $request
      * @return Response
      */
-    public function deleteEvent($id,Request $request): Response
+    public function delete($id, Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $event= $entityManager->getRepository(Event::class)->find($id);;
+        $event = $entityManager->getRepository(Event::class)->find($id);;
         if ($event) {
             $entityManager->remove($event);
             $entityManager->flush();
-            return new JsonResponse(array("messsage" => "user supprimé", Response::HTTP_OK));
+            return new JsonResponse(array("messsage" => "event supprimé", Response::HTTP_OK));
         }
 
         return new JsonResponse("false");
