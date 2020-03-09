@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Category;
 use \DateTime;
 
+
 /**
  * Class Event
  * @package App\Entity
