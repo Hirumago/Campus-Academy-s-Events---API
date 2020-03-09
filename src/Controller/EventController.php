@@ -71,7 +71,8 @@ class EventController extends BaseController
 
 
     /**
-     * @Route("/edit/{id}", name="event_edit", methods={"PUT"})
+     * @Rest\View()
+     * @Put("/{id}")
      * @param $id
      * @param Request $request
      * @return object|null
@@ -102,9 +103,9 @@ class EventController extends BaseController
     public function deleteEvent($id,Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $user= $entityManager->getRepository(User::class)->find($id);;
-        if ($user) {
-            $entityManager->remove($user);
+        $event= $entityManager->getRepository(Event::class)->find($id);;
+        if ($event) {
+            $entityManager->remove($event);
             $entityManager->flush();
             return new JsonResponse(array("messsage" => "user supprimé", Response::HTTP_OK));
         }
