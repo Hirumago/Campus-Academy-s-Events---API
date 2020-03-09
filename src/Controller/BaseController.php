@@ -25,22 +25,10 @@ class BaseController extends FOSRestController
             ->serialize($data, 'json');
     }
 
-<<<<<<< HEAD
-    /**
-     * @param $object
-     * @param $class
-     * @return mixed
-     */
-    protected function deserialize($object, $class)
-    {
-        return $this->container->get('jms_serializer')
-            ->deserialize($object, $class, 'json');
-=======
     protected function deserialize($data, $entity)
     {
         return $this->container->get('jms_serializer')
             ->deserialize($data,$entity, 'json');
->>>>>>> 222e5d507b395522b3e51158f2c8b52a95a71ae2
     }
 }
 
