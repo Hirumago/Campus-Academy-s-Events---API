@@ -3,13 +3,14 @@
 namespace  App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Id;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class User
  * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
 
     /**
@@ -36,9 +37,9 @@ class User
     private $passwordUser;
 
     /**
-     * @ORM\Column(type="string",name="role_user",length=20,nullable=false)
+     * @ORM\Column(type="json",name="role_user",length=20,nullable=false)
      */
-    private $roleUser;
+    private $roleUser = [];
 
     /**
      * @ORM\Column(type="string",name="email_user",length=30,nullable=false)
@@ -118,12 +119,7 @@ class User
     }
 
     /**
-     * @param mixed $roleUser
-     */
-    public function setRoleUser($roleUser)
-    {
-        $this->roleUser = $roleUser;
-    }
+
 
     /**
      * @return mixed
@@ -139,6 +135,59 @@ class User
     public function setEmailUser($emailUser)
     {
         $this->emailUser = $emailUser;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword()
+    {
+        return $this->passwordUser;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        return null;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string)$this->emailUser;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roleUser;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roleUser): self
+    {
+        $this->roleUser = $roleUser;
+
+        return $this;
     }
 
 

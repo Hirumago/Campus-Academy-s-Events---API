@@ -43,8 +43,8 @@ class Event{
     private $idCategory;
 
     /**
-     * @var User
-     * @ORM\OneToOne(targetEntity="App\Entity\UserEvent")
+     * @var UserEvent
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserEvent")
      * @ORM\JoinColumn(name="id_user", referencedColumnName="id_user", nullable=true)
      */
     private $idUser;

@@ -6,7 +6,13 @@
 /public/bundles/
 /var/
 /vendor/
+composer.json
 /.idea
 composer.lock
 symfony.lock
+/Migrations
 ###< symfony/framework-bundle ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

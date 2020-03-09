@@ -2,51 +2,117 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Event;
+use JMS\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
+
+use FOS\RestBundle\Controller\Annotations\Put;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Json;
 
-
+/**
+ * @Route("/event")
+ * format de date : Y-m-d\TH:i:sP
+ */
 class EventController extends BaseController
 {
 
-
     /**
-     * @Route("/event/{id}", name="event_show", methods={"GET", "HEAD"})
-
-     * @param $id
-     * @return Response
+     * @Rest\View()
+     * @Get("/list")
      */
-    public function showAction($id)
+    public function listAction()
     {
 
-        $event = $this->getDoctrine()->getManager()->getRepository(Event::class)->findBy(array('idEvent' => $id));
-        $data = $this->serialize($event);
-        $response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        $users = $this->getDoctrine()->getRepository(Event::class)->findAll();
+        return $users;
     }
 
     /**
-     * @Route("/event", name="event_create" , methods={"POST"})
+     *
+     *  @Rest\View()
+     * @Post("/")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function new(Request $request)
+    {
+
+        $data = $request->getContent();
+        $user = $this->deserialize($data, "App\Entity\Event");
+
+        if ($user) {
+            $em = $this->getDoctrine()->getManager();
+            $em->merge($user);
+            $em->flush();
+
+            return new JsonResponse(array("message" => "User crée", Response::HTTP_CREATED));
+        }
+        return new JsonResponse(array("message" => "deserialisation echoué"));
+    }
+
+    /**
+     * @Rest\View()
+     * @Get("/{id}")
+     * @param string $id
+     * @return object|null
+     */
+    public function show($id)
+    {
+        $event = $this->getDoctrine()->getManager()->getRepository(Event::class)->findOneBy(array("idEvent" => $id));
+        return $event;
+    }
+
+
+    /**
+     * @Rest\View()
+     * @Put("/{id}")
+     * @param $id
+     * @param Request $request
+     * @return object|null
+     */
+    public function updateEvent(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $d = $request->getContent();
+        if (!empty($d)) {
+            $dbEvent = $em->getRepository(Event::class)->find($id);
+            $event = $this->deserialize($d, "App\Entity\Event");
+            $em->merge($event);
+            $em->flush();
+            return new JsonResponse(array("message" => "Event modifié"));
+        } else {
+            return new JsonResponse(array("message" => "requete invalide", Response::HTTP_NOT_MODIFIED));
+        }
+
+    }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\Delete("/{id}")
      * @param Request $request
      * @return Response
      */
-    public function createAction(Request $request)
+    public function delete($id, Request $request): Response
     {
-        $data = $request->getContent();
-        $event = $this->deserialize($data, 'App\Entity\Event');
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($event);
-        $em->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $event = $entityManager->getRepository(Event::class)->find($id);;
+        if ($event) {
+            $entityManager->remove($event);
+            $entityManager->flush();
+            return new JsonResponse(array("messsage" => "event supprimé", Response::HTTP_OK));
+        }
 
-        return new Response('', Response::HTTP_CREATED);
+        return new JsonResponse("false");
     }
-
-
-
-
 }
