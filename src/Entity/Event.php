@@ -212,7 +212,7 @@ class Event{
     /**
      * @param Category $idCategory
      */
-    public function setIdCategory(\Category $idCategory)
+    public function setIdCategory(Category $idCategory)
     {
         $this->idCategory = $idCategory;
     }
