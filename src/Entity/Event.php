@@ -61,14 +61,14 @@ class Event{
     private$description;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(type="datetime", name="start_date",nullable=false)
      */
 
     private $startDate;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(type="datetime", name="end_date",nullable=false)
      */
     private $endDate;
@@ -226,9 +226,9 @@ class Event{
     }
 
     /**
-     * @param \UserEvent $idUser
+     * @param UserEvent $idUser
      */
-    public function setIdUser(\UserEvent $idUser)
+    public function setIdUser(UserEvent $idUser)
     {
         $this->idUser = $idUser;
     }
