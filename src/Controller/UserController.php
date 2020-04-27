@@ -9,6 +9,7 @@ use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Post;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,18 +30,19 @@ class UserController extends BaseController
      * @Rest\View()
      * @Get("/list")
      */
-    public function listAction(){
+    public function listUser(){
 
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
         return $users;
     }
 
     /**
-     * @Route("/", name="new", methods={"POST"})
+     * @Rest\View()
+     * @Post("/")
      * @param Request $request
      * @return JsonResponse
      */
-    public function new(Request $request)
+    public function createUser(Request $request)
     {
 
         $data = $request->getContent();
@@ -58,14 +60,11 @@ class UserController extends BaseController
 
     /**
      * @Rest\View()
-     * @Get(
-     *     path = "/{id}",
-     *     name = "show",
-     *     requirements = {"id"="\d+"})
+     * @Get("/{id}")
      * @param string $id
      * @return object|null
      */
-    public function show($id)
+    public function showUser($id)
     {
         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(array("idUser"=>$id));
         return $user;
@@ -73,7 +72,8 @@ class UserController extends BaseController
 
 
     /**
-     * @Route("/{id}", name="edit", methods={"PUT"})
+     * @Rest\View()
+     * @Put("/{id}")
      * @param $id
      * @param Request $request
      * @return object|null
@@ -101,7 +101,7 @@ class UserController extends BaseController
      * @param Request $request
      * @return Response
      */
-    public function delete($id,Request $request): Response
+    public function deleteUser($id,Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $user= $entityManager->getRepository(User::class)->find($id);;
