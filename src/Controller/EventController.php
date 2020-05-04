@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Json;
 
 /**
- * @Route("/event")
+ * @Route("/api/event")
  * format de date : Y-m-d\TH:i:sP
  */
 class EventController extends BaseController
@@ -33,8 +33,8 @@ class EventController extends BaseController
     public function listAction()
     {
 
-        $users = $this->getDoctrine()->getRepository(Event::class)->findAll();
-        return $users;
+        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+        return $events;
     }
 
     /**
@@ -48,14 +48,14 @@ class EventController extends BaseController
     {
 
         $data = $request->getContent();
-        $user = $this->deserialize($data, "App\Entity\Event");
+        $event = $this->deserialize($data, "App\Entity\Event");
 
-        if ($user) {
+        if ($event) {
             $em = $this->getDoctrine()->getManager();
-            $em->merge($user);
+            $em->merge($event);
             $em->flush();
 
-            return new JsonResponse(array("message" => "User crée", Response::HTTP_CREATED));
+            return new JsonResponse(array("message" => "Event crée", Response::HTTP_CREATED));
         }
         return new JsonResponse(array("message" => "deserialisation echoué"));
     }

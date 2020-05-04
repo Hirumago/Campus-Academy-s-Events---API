@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Json;
 
 /**
- * @Route("/user")
+ * @Route("/api/user")
  */
 class UserController extends BaseController
 {
