@@ -8,6 +8,7 @@
         "friendsofsymfony/rest-bundle": "^2.6",
         "jms/serializer-bundle": "^3.5",
         "lexik/jwt-authentication-bundle": "^2.6",
+        "nelmio/cors-bundle": "^2.0",
         "nikic/php-parser": "^4.3",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/apache-pack": "^1.0",
